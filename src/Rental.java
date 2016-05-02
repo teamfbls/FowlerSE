@@ -1,5 +1,3 @@
-
-
 class Rental {
     private Movie movie;
     private int daysRented;
@@ -14,10 +12,11 @@ class Rental {
         return movie;
     }
         
-        double getCharge(){
+    public double getCharge(){
             return movie.getCharge(daysRented); 
         }
-        int getFrequentRenterPoints(){
-            return movie.getFrequentRenterPoints(daysRented); 
+    public int getFrequentRenterPoints(){
+            return movie.getFrequentRenterPoints(daysRented);
         }
-}
+        
+    }
