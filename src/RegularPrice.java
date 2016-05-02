@@ -1,4 +1,4 @@
-package src;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,6 +10,8 @@ package src;
  *
  * @author THaskioglu
  */
-public class Price {
-    
+public class RegularPrice extends Price {
+    int getPriceCode() {
+        return Movie.REGULAR; 
+    }
 }

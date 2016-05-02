@@ -1,7 +1,3 @@
-package src;
-
-
-import src.Price;
 
 
 public class ChildrensPrice extends Price{

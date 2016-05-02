@@ -1,4 +1,4 @@
-package src;
+
 
 class Rental {
     private Movie movie;
