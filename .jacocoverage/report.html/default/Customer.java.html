@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;JavaApplication4&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">
+
+import java.lang.*;
+import java.util.*;
+
+class Customer {
+    private String name;
+<span class="nc" id="L8">    private Vector _rentals = new Vector();</span>
+<span class="nc" id="L9">    public Customer (String newname){</span>
+<span class="nc" id="L10">        name = newname;</span>
+<span class="nc" id="L11">    };</span>
+    public void addRental(Rental arg) {
+<span class="nc" id="L13">        _rentals.addElement(arg);</span>
+<span class="nc" id="L14">    };</span>
+    public String getName (){
+<span class="nc" id="L16">        return name;</span>
+    };
+    public String statement() {
+<span class="nc" id="L19">        double totalAmount = 0;</span>
+<span class="nc" id="L20">        int frequentRenterPoints = 0;</span>
+<span class="nc" id="L21">        Enumeration rentals = _rentals.elements();	    </span>
+<span class="nc" id="L22">        String result = &quot;Rental Record for &quot; + getName() + &quot;\n&quot;;</span>
+<span class="nc" id="L23">        result += &quot;\t&quot; + &quot;Title&quot; + &quot;\t&quot; + &quot;\t&quot; + &quot;Days&quot; + &quot;\t&quot; + &quot;Amount&quot; + &quot;\n&quot;;</span>
+
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        while (rentals.hasMoreElements()) {</span>
+            
+<span class="nc" id="L27">            Rental each = (Rental) rentals.nextElement();</span>
+            
+            // add frequent renter points
+<span class="nc" id="L30">            frequentRenterPoints += each.getFrequentRenterPoints();</span>
+            // add bonus for a two day new release rental
+<span class="nc bnc" id="L32" title="All 4 branches missed.">            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &amp;&amp; each.getDaysRented() &gt; 1) </span>
+<span class="nc" id="L33">                frequentRenterPoints ++;</span>
+            //show figures for this rental
+<span class="nc" id="L35">            result += &quot;\t&quot; + each.getMovie().getTitle()+ &quot;\t&quot; + &quot;\t&quot; + each.getDaysRented() + &quot;\t&quot; + String.valueOf(each.getCharge()) + &quot;\n&quot;;</span>
+<span class="nc" id="L36">            totalAmount += each.getCharge();</span>
+<span class="nc" id="L37">        }</span>
+        //add footer lines
+<span class="nc" id="L39">        result += &quot;Amount owed is &quot; + String.valueOf(getTotalCharge()) + &quot;\n&quot;;</span>
+<span class="nc" id="L40">        result += &quot;You earned &quot; + String.valueOf(getTotalFrequentRenterPoints()) + &quot; frequent renter points&quot;;</span>
+<span class="nc" id="L41">        return result;</span>
+    }
+    private double getTotalCharge() {
+<span class="nc" id="L44">        double result = 0; </span>
+<span class="nc" id="L45">        Enumeration rentals = _rentals.elements(); </span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        while (rentals.hasMoreElements()){</span>
+<span class="nc" id="L47">            Rental each =(Rental) rentals.nextElement(); </span>
+<span class="nc" id="L48">            result += each.getCharge();</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">        return result; </span>
+    }
+    private int getTotalFrequentRenterPoints(){
+<span class="nc" id="L53">        int result=0; </span>
+<span class="nc" id="L54">        Enumeration rentals = _rentals.elements(); </span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        while (rentals.hasMoreElements()){</span>
+<span class="nc" id="L56">            Rental each = (Rental) rentals.nextElement(); </span>
+<span class="nc" id="L57">            result += each.getFrequentRenterPoints(); </span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">        return result; </span>
+            
+    }
+    public String htmlStatement() {
+<span class="nc" id="L63">        Enumeration rentals = _rentals.elements(); </span>
+<span class="nc" id="L64">        String result =&quot;&lt;H1&gt;Rentals for &lt;EM&gt;&quot; + getName() + &quot;&lt;/EM&gt;&lt;/H1&gt;&lt;P&gt;\n&quot;;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        while (rentals.hasMoreElements()) {</span>
+<span class="nc" id="L66">            Rental each = (Rental) rentals.nextElement(); </span>
+<span class="nc" id="L67">            result += each.getMovie().getTitle() + &quot;: &quot; + String.valueOf(each.getCharge())+ &quot;&lt;BR&gt;\n&quot;;</span>
+            
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">        result += &quot;&lt;P&gt; You owe &lt;EM&gt;&quot; + String.valueOf(getTotalCharge())+ &quot;&lt;/EM&gt;&lt;P&gt;\n&quot;; </span>
+<span class="nc" id="L71">        result += &quot;On this rental you earned &lt;EM&gt;&quot; + String.valueOf(getTotalFrequentRenterPoints())+ &quot;&lt;/EM&gt; frequent renter points&lt;P&gt;&quot;; </span>
+<span class="nc" id="L72">        return result; </span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
